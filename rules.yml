@@ -1,0 +1,50 @@
+domain:
+  - BBEverydayAndUnlimited
+  - BBConnect
+  - TalkAndLineRental
+  - AwaitingPhoneLine
+  
+rules:
+  awaitingPhoneLine:
+    proposition: AwaitingPhoneLine
+    action: displayProvisioningMessage
+    parameters:
+      message: UK/Common/DSL/NewResponses/AwaitingPhoneLine
+
+  onNetBroadbandOnly:
+    proposition: BBEverydayAndUnlimited AND NOT TalkAndLineRental
+    action: displayProvisioningMessage
+    parameters:
+      message: UK/Common/DSL/NewResponses/Onnet_BB_Only
+      
+  onNetBroadbandAndTalk:
+    proposition: BBEverydayAndUnlimited AND TalkAndLineRental
+    action: displayProvisioningMessage
+    parameters:
+      message: UK/Common/DSL/NewResponses/Onnet_BBAndTalk
+
+  connectOnly:
+    proposition: BBConnect AND NOT TalkAndLineRental
+    action: displayProvisioningMessage
+    parameters:
+      message: UK/Common/DSL/NewResponses/Connect_Only_
+      appendExchangeStatus: true
+      
+  connectAndTalk:
+    proposition: BBConnect AND TalkAndLineRental
+    action: displayProvisioningMessage
+    parameters:
+      message: UK/Common/DSL/NewResponses/Connect_Talk_
+      appendExchangeStatus: true
+
+  talkOnly:
+    proposition: TalkAndLineRental AND NOT (BBEverydayAndUnlimited OR BBConnect)
+    action: displayProvisioningMessage
+    parameters:
+      message: UK/Common/DSL/NewResponses/Talk_Only
+      
+  noProducts:
+    proposition: NOT (TalkAndLineRental OR BBEverydayAndUnlimited OR BBConnect)
+    action: displayProvisioningMessage
+    parameters:
+      message: UK/Common/DSL/NewResponses/No_BB_Or_Talk
